@@ -1,3 +1,7 @@
 .featuredItem{
     background-image: url('../../../assets/home/featured.jpg');
 }
+
+.featuredItem2{
+    background-image: url("../../../assets/home/chef-service.jpg");
+}
