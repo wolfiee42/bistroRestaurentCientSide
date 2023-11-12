@@ -1,26 +1,21 @@
-import { useEffect, useState } from "react";
 import SectionTitle from "../../../Components/Section Title/SectionTitle";
 import MenuSection from "../../../Shared/MenuSection";
+import useMenu from "../../../hooks/useMenu";
 
 const PopularMenu = () => {
-    const [menu, setMenu] = useState([])
-    useEffect(() => {
-        fetch('menu.json')
-            .then(res => res.json())
-            .then(data => {
-                const popularItem = data.filter(item => item.category === "popular");
-                setMenu(popularItem);
-            })
-    }, [])
+
+    const [menu] = useMenu();
+    const popularItem = menu.filter(item=>item.category === "popular")
+
     return (
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto my-10">
             <SectionTitle
                 subTitle="---Check it out---"
                 title="FROM OUR MENU"
             ></SectionTitle>
             <div className="grid md:grid-cols-2 gap-10">
                 {
-                    menu.map(item => <MenuSection key={item._id} item={item}></MenuSection>)
+                    popularItem.map(item => <MenuSection key={item._id} item={item}></MenuSection>)
                 }
             </div>
         </div>
