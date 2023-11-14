@@ -7,7 +7,6 @@ const Register = () => {
     const { createUser } = useContext(AuthContext)
 
     const onSubmit = (data) => {
-
         const email = data.email;
         const password = data.password;
 
@@ -17,6 +16,7 @@ const Register = () => {
                 console.log(result.user);
             })
     }
+    
     // const handlesignUp = event => {
     //     event.preventDefault();
     //     const form = event.target;
@@ -69,8 +69,8 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input {...register("password", { required: true })} type="password" placeholder="password" className="input input-bordered" />
-                            {errors.name && <span className="mt-1 text-red-600">Password is required</span>}
+                            <input {...register("password", { required: true , pattern: /.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-].*/ })} type="password" placeholder="password" className="input input-bordered" />
+                            {errors.password && <span className="mt-1 text-red-600">Password is required</span>}
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>

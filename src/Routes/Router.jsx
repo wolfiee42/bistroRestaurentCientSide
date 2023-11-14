@@ -7,6 +7,8 @@ import Menu from "../Pages/Menu/Menu/Menu";
 import Order from "../Pages/Order/Order/Order";
 import Login from "../Layouts/Login/Login";
 import Register from "../Layouts/Register/Register";
+import Secret from "../Shared/Secret";
+import PirvateRoute from "./PirvateRoute";
 
 
 
@@ -22,6 +24,10 @@ export const router = createBrowserRouter([
             {
                 path: "/menu",
                 element: <Menu></Menu>
+            },
+            {
+                path: "/secret",
+                element: <PirvateRoute><Secret></Secret></PirvateRoute>
             },
             {
                 path: "/order/:category",
