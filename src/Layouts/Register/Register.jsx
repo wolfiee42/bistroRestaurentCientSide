@@ -4,19 +4,27 @@ import { useForm } from "react-hook-form"
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const { createUser } = useContext(AuthContext)
+    const { createUser, updateUserProfile } = useContext(AuthContext)
 
     const onSubmit = (data) => {
         const email = data.email;
         const password = data.password;
-
+        const name = data.name;
+        const photo = data.image
 
         createUser(email, password)
             .then(result => {
                 console.log(result.user);
+                updateUserProfile(name, photo)
+                    .then(() => {
+
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             })
     }
-    
+
     // const handlesignUp = event => {
     //     event.preventDefault();
     //     const form = event.target;
@@ -69,7 +77,7 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input {...register("password", { required: true , pattern: /.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-].*/ })} type="password" placeholder="password" className="input input-bordered" />
+                            <input {...register("password", { required: true, pattern: /.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-].*/ })} type="password" placeholder="password" className="input input-bordered" />
                             {errors.password && <span className="mt-1 text-red-600">Password is required</span>}
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
