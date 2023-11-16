@@ -9,8 +9,8 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
     const [cart] = useCart();
-    
-    
+
+
     const handleLogOut = e => {
         e.preventDefault();
         logOut()
@@ -52,10 +52,12 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <button className="btn btn-neutral">
-                        <FaShoppingCart className="text-xl"></FaShoppingCart>
-                        <div className="badge badge-secondary">+{cart.length}</div>
-                    </button>
+                    <Link to={'/dashboard/mycart'}>
+                        <button className="btn btn-neutral">
+                            <FaShoppingCart className="text-xl"></FaShoppingCart>
+                            <div className="badge badge-secondary">+{cart.length}</div>
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

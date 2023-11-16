@@ -9,6 +9,13 @@ import Login from "../Layouts/Login/Login";
 import Register from "../Layouts/Register/Register";
 import Secret from "../Shared/Secret";
 import PirvateRoute from "./PirvateRoute";
+import Dashboard from "../Layouts/UserDashBoard/Dashboard";
+import MyCart from "../Pages/My Cart/MyCart";
+import UserHome from "../Pages/user home/UserHome";
+import Reservation from "../Pages/Reservation/Reservation";
+import PaymentHistory from "../Pages/Payment/PaymentHistory";
+import Review from "../Pages/Review/Review";
+import Mybooking from "../Pages/MyBooking/Mybooking";
 
 
 
@@ -42,5 +49,35 @@ export const router = createBrowserRouter([
     {
         path: '/signup',
         element: <Register />
+    },
+    {
+        path: '/dashboard',
+        element: <Dashboard />,
+        children: [
+            {
+                path: "/dashboard/userhome",
+                element: <UserHome />
+            },
+            {
+                path: "/dashboard/reservation",
+                element: <Reservation />
+            },
+            {
+                path: "/dashboard/paymenthistory",
+                element: <PaymentHistory />
+            },
+            {
+                path: "/dashboard/mycart",
+                element: <MyCart />
+            },
+            {
+                path: "/dashboard/review",
+                element: <Review />
+            },
+            {
+                path: "/dashboard/mybooking",
+                element: <Mybooking />
+            },
+        ]
     }
 ]);
