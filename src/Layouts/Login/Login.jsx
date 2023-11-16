@@ -2,34 +2,37 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from "../../Provider/AuthProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaGoogle } from "react-icons/fa";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 const Login = () => {
 
     const [disabled, setDisabled] = useState(true);
-    const { login } = useContext(AuthContext);
+    const { login,googleSignUp } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosPublic = useAxiosPublic();
 
     const from = location.state?.from?.pathname || '/';
 
     useEffect(() => {
         loadCaptchaEnginge(6);
     }, []);
-    
+
     const handleLogin = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
 
-        
+
         login(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                navigate(from, {replace: true});
+                navigate(from, { replace: true });
             })
 
 
@@ -43,6 +46,23 @@ const Login = () => {
         } else {
             setDisabled(true)
         }
+    }
+
+    const handleSocialBtn = () =>{
+        googleSignUp()
+        .then((res)=>{
+            const name = res.user?.displayName;
+            const email = res.user?.email;
+
+            const user = { name, email };
+
+            axiosPublic.post('/users', user)
+            .then(res=>{
+                console.log(res)
+                navigate('/')
+            })
+        })
+
     }
 
     return (
@@ -77,12 +97,18 @@ const Login = () => {
                                 <label className="label">
                                     <LoadCanvasTemplate />
                                 </label>
-                                <input  onBlur={handeValidateBtn} name="captcha" type="text" placeholder="Type captcha above" className="input input-bordered" />
+                                <input onBlur={handeValidateBtn} name="captcha" type="text" placeholder="Type captcha above" className="input input-bordered" />
                             </div>
                             <div className="form-control mt-6">
                                 <button disabled={disabled} className="btn btn-primary">Login</button>
                             </div>
                         </form>
+                        <p className="px-8">New to Bistro Rastaurent? Please <Link to={'/signup'} className="hover:text-red-500 hover:underline hover:font-semibold hover:cursor-pointer">Sign Up</Link></p>
+                        <div className="divider"></div>
+                        <button onClick={handleSocialBtn} className="btn m-6">
+                            <FaGoogle></FaGoogle>
+                            Google
+                        </button>
                     </div>
                 </div>
             </div>

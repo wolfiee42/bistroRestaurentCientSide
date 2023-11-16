@@ -1,10 +1,19 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useForm } from "react-hook-form"
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import Swal from 'sweetalert2'
+import { FaGoogle } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+
+
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const { createUser, updateUserProfile } = useContext(AuthContext)
+    const { createUser, updateUserProfile, googleSignUp } = useContext(AuthContext)
+    const axiosPublic = useAxiosPublic()
+    const navigate = useNavigate()
+
 
     const onSubmit = (data) => {
         const email = data.email;
@@ -15,14 +24,46 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 console.log(result.user);
+                const user = { name, email }
                 updateUserProfile(name, photo)
                     .then(() => {
-
+                        axiosPublic.post('/users', user)
+                            .then(res => {
+                                if (res.data.insertedId > 0) {
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "Your work has been saved",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/')
+                                }
+                            })
                     })
                     .catch(error => {
                         console.log(error);
                     })
             })
+    }
+
+    const handleSocialBtn = () => {
+        googleSignUp()
+            .then((res) => {
+
+                const user = {
+                    email: res.user?.email,
+                    name: res.user?.displayName,
+                };
+
+                axiosPublic.post('/users', user)
+                    .then(res => {
+                        console.log(res.data)
+                        navigate('/')
+                    })
+
+            })
+
     }
 
     // const handlesignUp = event => {
@@ -87,6 +128,12 @@ const Register = () => {
                             <button className="btn btn-primary">Sign Up</button>
                         </div>
                     </form>
+                    <p className="px-8">Already have an account? Please <Link to={'/login'} className="hover:text-red-500 hover:underline hover:font-semibold hover:cursor-pointer">Login</Link></p>
+                    <div className="divider"></div>
+                    <button onClick={handleSocialBtn} className="btn m-6">
+                        <FaGoogle></FaGoogle>
+                        Google
+                    </button>
                 </div>
             </div>
         </div>

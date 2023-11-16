@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <Dashboard />,
+        element: <PirvateRoute><Dashboard /></PirvateRoute>,
         children: [
             {
                 path: "/dashboard/userhome",
