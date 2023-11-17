@@ -1,10 +1,12 @@
 import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../hooks/useCart";
 import Swal from 'sweetalert2'
-import { axiosSecure } from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 
 
 const MyCart = () => {
+    const axiosSecure = useAxiosSecure()
     const [cart, refetch] = useCart();
     const Price = cart.reduce((total, item) => total + item.price, 0);
     const totalPrice = Price.toFixed(2);

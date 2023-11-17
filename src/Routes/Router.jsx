@@ -16,6 +16,7 @@ import Reservation from "../Pages/Reservation/Reservation";
 import PaymentHistory from "../Pages/Payment/PaymentHistory";
 import Review from "../Pages/Review/Review";
 import Mybooking from "../Pages/MyBooking/Mybooking";
+import AllUsers from "../Pages/All users/AllUsers";
 
 
 
@@ -78,6 +79,14 @@ export const router = createBrowserRouter([
                 path: "/dashboard/mybooking",
                 element: <Mybooking />
             },
+            
+            
+            // admin
+            {
+                path: "/dashboard/allusers",
+                element: <AllUsers />
+            },
+           
         ]
     }
 ]);
