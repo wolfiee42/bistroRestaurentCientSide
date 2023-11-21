@@ -21,6 +21,7 @@ import AddItems from "../Pages/Admin Dashboard/AddItems";
 import AdminRoute from "./AdminRoute";
 import ManageItem from "../Pages/Admin Dashboard/Manage item/ManageItem";
 import UpdateItem from "../Pages/Admin Dashboard/Update item/UpdateItem";
+import Payment from "../Pages/Payment/Payment";
 
 
 
@@ -70,7 +71,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/paymenthistory",
-                element: <PaymentHistory />
+                element: <PaymentHistory/>
             },
             {
                 path: "/dashboard/mycart",
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/mybooking",
                 element: <Mybooking />
+            },
+            {
+                path: "/dashboard/payment",
+                element: <Payment />
             },
 
 
