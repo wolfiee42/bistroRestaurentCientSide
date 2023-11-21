@@ -30,7 +30,7 @@ const Dashboard = () => {
 
                 </ul>
             </div>
-            <div className="flex-grow p-10 bg-white">
+            <div className="flex-grow p-5 bg-white">
                 <Outlet></Outlet>
             </div>
         </div>
